@@ -1,10 +1,10 @@
 import pygame
-from board import draw_board, load_piece_images
+from board import draw_board, load_piece_images, draw_log_moves
 from state import GameState
 
 # Inicialização
 pygame.init()
-WIDTH, HEIGHT = 640, 640
+WIDTH, HEIGHT = 850, 640
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Xadrez com Pygame")
 gs = GameState()
@@ -23,10 +23,13 @@ while running:
             mouse_x, mouse_y = pygame.mouse.get_pos()
             row = mouse_y // 80
             col = mouse_x // 80
-            clicked_piece = gs.board[row][col]
-            gs.select_pieces(row,col)
+            if(row >= 0 and row < 8 and col >= 0 and col < 8):
+                clicked_piece = gs.board[row][col]
+                gs.select_pieces(row,col)
 
-    draw_board(screen, gs.board)
+    screen.fill((0, 0, 0)) 
+    draw_board(screen, gs.board,gs)
+    draw_log_moves(screen, gs)
     pygame.display.flip()
 
 pygame.quit()

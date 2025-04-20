@@ -17,11 +17,19 @@ class GameState:
         self.move = None
 
     def select_pieces(self, row, col):
-        if(self.turn_of_white and self.board[row][col]):
-            pass
         if(self.move == None):
+            if(self.board[row][col] == ""):
+                return
+            if(self.turn_of_white and self.board[row][col][0] != "w"):
+                return
+            else:
+                if(not self.turn_of_white and self.board[row][col][0] != "b"):
+                    return
             self.move = Move(row, col, None, None, self.board)
         else:
+            end_piece = self.board[row][col]
+            if(end_piece != "" and end_piece[0] == self.move.piece_moved[0]):
+                return
             self.move.end_row = row
             self.move.end_col = col
             self.move_piece()
@@ -29,5 +37,6 @@ class GameState:
     def move_piece(self):
         self.board[self.move.start_row][self.move.start_col] = ""
         self.board[self.move.end_row][self.move.end_col] = self.move.piece_moved
+        self.move_logs.append(self.move)
         self.move = None
         self.turn_of_white = not self.turn_of_white
