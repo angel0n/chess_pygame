@@ -30,6 +30,7 @@ while running:
     screen.fill((0, 0, 0)) 
     draw_board(screen, gs.board,gs)
     draw_log_moves(screen, gs)
+    gs.get_moves_possibles()
     pygame.display.flip()
 
 pygame.quit()
