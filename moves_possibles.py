@@ -200,6 +200,13 @@ def get_moves_king(board: list[list[str]], start_row: int, start_col: int):
     
     return moves
 
+
+def get_moves_queen(board: list[list[str]], start_row: int, start_col: int):
+    moves = []
+    moves.extend(get_moves_rook(board,start_row,start_col))
+    moves.extend(get_moves_bishop(board,start_row,start_col))
+    return moves
+
 get_moves_possibles_piece = {
     "wp": get_moves_peaw,
     "bp": get_moves_peaw,
@@ -210,5 +217,7 @@ get_moves_possibles_piece = {
     "bb": get_moves_bishop,
     "wb": get_moves_bishop,
     "wk": get_moves_king,
-    "bk": get_moves_king
+    "bk": get_moves_king,
+    "wq": get_moves_queen,
+    "bq": get_moves_queen
 }
