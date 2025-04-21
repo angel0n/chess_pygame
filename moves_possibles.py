@@ -110,11 +110,68 @@ def get_moves_knight(board: list[list[str]], start_row: int, start_col: int):
 
     return moves
 
+def get_moves_bishop(board: list[list[str]], start_row: int, start_col: int):
+    piece = board[start_row][start_col][0]
+    oponent = "w" if piece == "b" else "b"
+    moves = []
+
+    col = 1
+    for row in range(start_row + 1,8):
+        if(start_col + col < 8):
+            if(board[row][start_col + col] == ""):
+                moves.append(str(Move(start_row, start_col, row, start_col + col, board)))
+            elif(board[row][start_col + col][0] == oponent):
+                moves.append(str(Move(start_row, start_col, row, start_col + col, board)))
+                break
+            elif(board[row][start_col + col][0] == piece):
+                break
+            col += 1
+
+    col = 1
+    for row in range(start_row + 1,8):
+        if(start_col - col >= 0):
+            if(board[row][start_col - col] == ""):
+                moves.append(str(Move(start_row, start_col, row, start_col - col, board)))
+            elif(board[row][start_col - col][0] == oponent):
+                moves.append(str(Move(start_row, start_col, row, start_col - col, board)))
+                break
+            elif(board[row][start_col - col][0] == piece):
+                break
+            col += 1
+    
+    col = 1
+    for row in range(start_row - 1,-1,-1):
+        if(start_col + col < 8):
+            if(board[row][start_col + col] == ""):
+                moves.append(str(Move(start_row, start_col, row, start_col + col, board)))
+            elif(board[row][start_col + col][0] == oponent):
+                moves.append(str(Move(start_row, start_col, row, start_col + col, board)))
+                break
+            elif(board[row][start_col + col][0] == piece):
+                break
+            col += 1
+
+    col = 1
+    for row in range(start_row - 1,-1,-1):
+        if(start_col - col >= 0):
+            if(board[row][start_col - col] == ""):
+                moves.append(str(Move(start_row, start_col, row, start_col - col, board)))
+            elif(board[row][start_col - col][0] == oponent):
+                moves.append(str(Move(start_row, start_col, row, start_col - col, board)))
+                break
+            elif(board[row][start_col - col][0] == piece):
+                break
+            col += 1
+
+    return moves
+
 get_moves_possibles_piece = {
     "wp": get_moves_peaw,
     "bp": get_moves_peaw,
     "wr": get_moves_rook,
     "br": get_moves_rook,
     "bn": get_moves_knight,
-    "wn": get_moves_knight
+    "wn": get_moves_knight,
+    "bb": get_moves_bishop,
+    "wb": get_moves_bishop
 }

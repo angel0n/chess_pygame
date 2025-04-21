@@ -10,6 +10,7 @@ pygame.display.set_caption("Xadrez com Pygame")
 gs = GameState()
 
 load_piece_images()
+gs.get_moves_possibles()
 
 # Loop principal
 running = True
@@ -26,11 +27,11 @@ while running:
             if(row >= 0 and row < 8 and col >= 0 and col < 8):
                 clicked_piece = gs.board[row][col]
                 gs.select_pieces(row,col)
+                gs.get_moves_possibles()
 
     screen.fill((0, 0, 0)) 
     draw_board(screen, gs.board,gs)
     draw_log_moves(screen, gs)
-    gs.get_moves_possibles()
     pygame.display.flip()
 
 pygame.quit()
