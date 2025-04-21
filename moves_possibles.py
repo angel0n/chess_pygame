@@ -1,37 +1,26 @@
 from move import Move
 
 def get_moves_peaw(board: list[list[str]], start_row: int, start_col: int):
-    piece = board[start_row][start_col]
+    piece = board[start_row][start_col][0]
+    oponent = "b" if piece == "w" else "w"
     moves = []
-    if(piece[0] == "w"):
-        if(start_row == 6):
-            if(board[start_row - 1][start_col] == ""):
-                moves.append(str(Move(start_row, start_col,start_row - 1, start_col, board)))
-                if(board[start_row - 2][start_col] == ""):
-                    moves.append(str(Move(start_row, start_col,start_row - 2, start_col, board)))
-        else:
-            if(start_row - 1 >= 0 and board[start_row - 1][start_col] == ""):
-                moves.append(str(Move(start_row, start_col,start_row - 1, start_col, board)))  
 
-        if((start_col - 1 >= 0 and start_row - 1 >= 0) and board[start_row - 1][start_col - 1] != "" and board[start_row - 1][start_col - 1][0] == "b"): 
-             moves.append(str(Move(start_row, start_col,start_row - 1, start_col - 1, board)))
-        if((start_col + 1 < 8 and start_row - 1 >= 0) and board[start_row - 1][start_col + 1] != "" and board[start_row - 1][start_col + 1][0] == "b"): 
-             moves.append(str(Move(start_row, start_col,start_row - 1, start_col + 1, board)))
-    else:
-        if(start_row == 1):
-            if(board[start_row + 1][start_col] == ""):
-                moves.append(str(Move(start_row, start_col,start_row + 1, start_col, board)))
-                if(board[start_row + 2][start_col] == ""):
-                    moves.append(str(Move(start_row, start_col,start_row + 2, start_col,board)))
-        else:
-            if(start_row + 1 <= 7 and board[start_row + 1][start_col] == ""):
-                moves.append(str(Move(start_row, start_col,start_row + 1, start_col,board)))  
-        
-        if((start_col - 1 >= 0 and start_row + 1 < 8) and board[start_row + 1][start_col - 1] != "" and board[start_row + 1][start_col - 1][0] == "w"): 
-             moves.append(str(Move(start_row, start_col,start_row + 1, start_col - 1, board)))
-        if((start_col + 1 < 8 and start_row + 1 < 8) and board[start_row + 1][start_col + 1] != "" and board[start_row + 1][start_col + 1][0] == "w"): 
-             moves.append(str(Move(start_row, start_col,start_row + 1, start_col + 1, board)))
-    
+    inicial_row = 6 if piece == "w" else 1
+    direction = -1 if inicial_row == 6 else 1
+
+    if(0 <= (start_row + direction) < 8 ):
+        # move 1 ou duas casas para frente
+        if(board[start_row + direction][start_col] == ""):
+            moves.append(str(Move(start_row, start_col,start_row + direction, start_col, board)))
+            if(start_row == inicial_row and board[start_row + (2 * direction)][start_col] == ""):
+                moves.append(str(Move(start_row, start_col,start_row + (2 * direction), start_col, board)))
+
+        # captura na diagonal
+        if(start_col -1 >= 0 and board[start_row + direction][start_col - 1 ] != "" and board[start_row + direction][start_col - 1 ][0] == oponent):
+            moves.append(str(Move(start_row, start_col,start_row + direction, start_col - 1, board)))
+        if(start_col +1 < 8 and board[start_row + direction][start_col + 1 ] != "" and board[start_row + direction][start_col + 1 ][0] == oponent):
+            moves.append(str(Move(start_row, start_col,start_row + direction, start_col + 1, board)))
+
     return moves
 
 def get_moves_rook(board: list[list[str]], start_row: int, start_col: int):
