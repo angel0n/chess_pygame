@@ -52,7 +52,7 @@ class GameState:
         self.moves_possibles = []
         for row in range(8):
             for col in range(8):
-                if(self.board[row][col] != "" and (self.board[row][col][1] == "p" or self.board[row][col][1] == "r" or self.board[row][col][1] == "n" or self.board[row][col][1] == "b")):
+                if(self.board[row][col] != "" and (self.board[row][col][1] == "p" or self.board[row][col][1] == "r" or self.board[row][col][1] == "n" or self.board[row][col][1] == "b" or self.board[row][col][1] == "k")):
                     moves = get_moves_possibles_piece[self.board[row][col]](self.board, row, col)
                     self.moves_possibles.extend(moves)
                 

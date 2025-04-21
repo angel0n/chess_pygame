@@ -165,6 +165,41 @@ def get_moves_bishop(board: list[list[str]], start_row: int, start_col: int):
 
     return moves
 
+def get_moves_king(board: list[list[str]], start_row: int, start_col: int):
+    piece = board[start_row][start_col][0]
+    oponent = "w" if piece == "b" else "b"
+    moves = []
+
+    if(start_row + 1 < 8):
+        if(board[start_row + 1][start_col] == "" or board[start_row + 1][start_col][0] == oponent):
+            moves.append(str(Move(start_row, start_col, start_row + 1, start_col, board)))
+        if(start_col + 1 < 8):
+            if(board[start_row + 1][start_col + 1] == "" or board[start_row + 1][start_col + 1][0] == oponent):
+                moves.append(str(Move(start_row, start_col, start_row + 1, start_col + 1, board)))
+        if(start_col - 1 >= 0):
+            if(board[start_row + 1][start_col - 1] == "" or board[start_row + 1][start_col - 1][0] == oponent):
+                moves.append(str(Move(start_row, start_col, start_row + 1, start_col - 1, board)))
+    
+    if(start_row - 1 >= 0):
+        if(board[start_row - 1][start_col] == "" or board[start_row - 1][start_col][0] == oponent):
+            moves.append(str(Move(start_row, start_col, start_row - 1, start_col, board)))
+        if(start_col + 1 < 8):
+            if(board[start_row - 1][start_col + 1] == "" or board[start_row - 1][start_col + 1][0] == oponent):
+                moves.append(str(Move(start_row, start_col, start_row - 1, start_col + 1, board)))
+        if(start_col - 1 >= 0):
+            if(board[start_row - 1][start_col - 1] == "" or board[start_row - 1][start_col - 1][0] == oponent):
+                moves.append(str(Move(start_row, start_col, start_row - 1, start_col - 1, board)))
+    
+    if(start_col + 1 < 8):
+        if(board[start_row][start_col + 1] == "" or board[start_row][start_col + 1][0] == oponent):
+                moves.append(str(Move(start_row, start_col, start_row, start_col + 1, board)))
+    
+    if(start_col - 1 < 8):
+        if(board[start_row][start_col - 1] == "" or board[start_row][start_col - 1][0] == oponent):
+                moves.append(str(Move(start_row, start_col, start_row, start_col - 1, board)))
+    
+    return moves
+
 get_moves_possibles_piece = {
     "wp": get_moves_peaw,
     "bp": get_moves_peaw,
@@ -173,5 +208,7 @@ get_moves_possibles_piece = {
     "bn": get_moves_knight,
     "wn": get_moves_knight,
     "bb": get_moves_bishop,
-    "wb": get_moves_bishop
+    "wb": get_moves_bishop,
+    "wk": get_moves_king,
+    "bk": get_moves_king
 }
