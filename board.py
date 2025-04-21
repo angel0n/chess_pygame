@@ -1,5 +1,5 @@
 import pygame
-from state import GameState
+
 # Cores
 WHITE = (240, 217, 181)
 BROWN = (181, 136, 99)
@@ -32,7 +32,7 @@ def draw_board(screen, board_state, gs):
             if piece != "":
                 screen.blit(piece_images[piece], rect)
 
-def draw_log_moves(screen, gs: GameState):
+def draw_log_moves(screen, gs):
     font = pygame.font.SysFont("Arial", 20)
     text_y = 10
     text_x = 650

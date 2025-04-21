@@ -26,12 +26,13 @@ while running:
             col = mouse_x // 80
             if(row >= 0 and row < 8 and col >= 0 and col < 8):
                 clicked_piece = gs.board[row][col]
-                gs.select_pieces(row,col)
+                gs.select_pieces(row,col, screen)
                 gs.get_moves_possibles()
 
-    screen.fill((0, 0, 0)) 
-    draw_board(screen, gs.board,gs)
-    draw_log_moves(screen, gs)
+    if(not gs.check_mate):
+        screen.fill((0, 0, 0)) 
+        draw_board(screen, gs.board,gs)
+        draw_log_moves(screen, gs)
     pygame.display.flip()
 
 pygame.quit()
