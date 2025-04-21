@@ -79,9 +79,42 @@ def get_moves_rook(board: list[list[str]], start_row: int, start_col: int):
                break
     return moves
 
+def get_moves_knight(board: list[list[str]], start_row: int, start_col: int):
+    piece = board[start_row][start_col][0]
+    oponent = "w" if piece == "b" else "b"
+    moves = []
+
+    if(start_row - 2 >= 0):
+        if(start_col - 1 >= 0 and (board[start_row - 2][start_col - 1] == "" or board[start_row - 2][start_col - 1][0] == oponent)):
+            moves.append(str(Move(start_row, start_col, start_row - 2, start_col - 1, board))) 
+        if(start_col + 1 < 8 and (board[start_row - 2][start_col + 1] == "" or board[start_row - 2][start_col + 1][0] == oponent)):
+            moves.append(str(Move(start_row, start_col, start_row - 2, start_col + 1, board))) 
+    
+    if(start_row + 2 < 8):
+        if(start_col - 1 >= 0 and (board[start_row + 2][start_col - 1] == "" or board[start_row + 2][start_col - 1][0] == oponent)):
+            moves.append(str(Move(start_row, start_col, start_row + 2, start_col - 1, board))) 
+        if(start_col + 1 < 8 and (board[start_row + 2][start_col + 1] == "" or board[start_row + 2][start_col + 1][0] == oponent)):
+            moves.append(str(Move(start_row, start_col, start_row + 2, start_col + 1, board))) 
+    
+    if(start_col - 2 >= 0):
+        if(start_row - 1 >= 0 and (board[start_row - 1][start_col - 2] == "" or board[start_row - 1][start_col - 2][0] == oponent)):
+            moves.append(str(Move(start_row, start_col, start_row - 1, start_col - 2, board))) 
+        if(start_row + 1 < 8 and (board[start_row + 1][start_col - 2] == "" or board[start_row + 1][start_col - 2][0] == oponent)):
+            moves.append(str(Move(start_row, start_col, start_row + 1, start_col - 2, board)))
+
+    if(start_col + 2 < 8):
+        if(start_row - 1 >= 0 and (board[start_row - 1][start_col + 2] == "" or board[start_row - 1][start_col + 2][0] == oponent)):
+            moves.append(str(Move(start_row, start_col, start_row - 1, start_col + 2, board))) 
+        if(start_row + 1 < 8 and (board[start_row + 1][start_col + 2] == "" or board[start_row + 1][start_col + 2][0] == oponent)):
+            moves.append(str(Move(start_row, start_col, start_row + 1, start_col + 2, board)))
+
+    return moves
+
 get_moves_possibles_piece = {
     "wp": get_moves_peaw,
     "bp": get_moves_peaw,
     "wr": get_moves_rook,
     "br": get_moves_rook,
+    "bn": get_moves_knight,
+    "wn": get_moves_knight
 }
