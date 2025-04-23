@@ -88,38 +88,19 @@ def get_moves_bishop(board: list[list[str]], start_row: int, start_col: int):
     return moves
 
 def get_moves_king(board: list[list[str]], start_row: int, start_col: int):
-    piece = board[start_row][start_col][0]
-    oponent = "w" if piece == "b" else "b"
+    piece = board[start_row][start_col]
+    oponent = "w" if piece[0] == "b" else "b"
     moves = []
 
-    if(start_row + 1 < 8):
-        if(board[start_row + 1][start_col] == "" or board[start_row + 1][start_col][0] == oponent):
-            moves.append(str(Move(start_row, start_col, start_row + 1, start_col, board)))
-        if(start_col + 1 < 8):
-            if(board[start_row + 1][start_col + 1] == "" or board[start_row + 1][start_col + 1][0] == oponent):
-                moves.append(str(Move(start_row, start_col, start_row + 1, start_col + 1, board)))
-        if(start_col - 1 >= 0):
-            if(board[start_row + 1][start_col - 1] == "" or board[start_row + 1][start_col - 1][0] == oponent):
-                moves.append(str(Move(start_row, start_col, start_row + 1, start_col - 1, board)))
-    
-    if(start_row - 1 >= 0):
-        if(board[start_row - 1][start_col] == "" or board[start_row - 1][start_col][0] == oponent):
-            moves.append(str(Move(start_row, start_col, start_row - 1, start_col, board)))
-        if(start_col + 1 < 8):
-            if(board[start_row - 1][start_col + 1] == "" or board[start_row - 1][start_col + 1][0] == oponent):
-                moves.append(str(Move(start_row, start_col, start_row - 1, start_col + 1, board)))
-        if(start_col - 1 >= 0):
-            if(board[start_row - 1][start_col - 1] == "" or board[start_row - 1][start_col - 1][0] == oponent):
-                moves.append(str(Move(start_row, start_col, start_row - 1, start_col - 1, board)))
-    
-    if(start_col + 1 < 8):
-        if(board[start_row][start_col + 1] == "" or board[start_row][start_col + 1][0] == oponent):
-                moves.append(str(Move(start_row, start_col, start_row, start_col + 1, board)))
-    
-    if(start_col - 1 < 8):
-        if(board[start_row][start_col - 1] == "" or board[start_row][start_col - 1][0] == oponent):
-                moves.append(str(Move(start_row, start_col, start_row, start_col - 1, board)))
-    
+    directions = [(1,0),(1,1),(1,-1),(-1,0),(-1,1),(-1-1),(0,1),(0,-1)]
+
+    for row_direction, col_direction in directions:
+        row, col = start_row + row_direction, start_col + col_direction
+        piece_captured = board[row][col]
+        if piece_captured == "":
+            moves.append(str(Move(start_row, start_col, row, col, board)))
+        if piece_captured[0] == oponent:
+            moves.append(str(Move(start_row, start_col, row, col, board)))
     return moves
 
 
