@@ -4,18 +4,14 @@ def get_moves_peaw(board: list[list[str]], start_row: int, start_col: int):
     piece = board[start_row][start_col][0]
     oponent = "b" if piece == "w" else "w"
     moves = []
-
     inicial_row = 6 if piece == "w" else 1
     direction = -1 if inicial_row == 6 else 1
 
     if(0 <= (start_row + direction) < 8 ):
-        # move 1 ou duas casas para frente
         if(board[start_row + direction][start_col] == ""):
             moves.append(str(Move(start_row, start_col,start_row + direction, start_col, board)))
             if(start_row == inicial_row and board[start_row + (2 * direction)][start_col] == ""):
                 moves.append(str(Move(start_row, start_col,start_row + (2 * direction), start_col, board)))
-
-        # captura na diagonal
         if(start_col -1 >= 0 and board[start_row + direction][start_col - 1 ] != "" and board[start_row + direction][start_col - 1 ][0] == oponent):
             moves.append(str(Move(start_row, start_col,start_row + direction, start_col - 1, board)))
         if(start_col +1 < 8 and board[start_row + direction][start_col + 1 ] != "" and board[start_row + direction][start_col + 1 ][0] == oponent):
@@ -27,7 +23,6 @@ def get_moves_rook(board: list[list[str]], start_row: int, start_col: int):
     piece = board[start_row][start_col]
     oponent = "b" if piece[0] == "w" else "w"
     moves = []
-
     directions = [(1,0),(-1,0),(0,1),(0,-1)]
 
     for row_direction, col_direction in directions:
@@ -42,17 +37,14 @@ def get_moves_rook(board: list[list[str]], start_row: int, start_col: int):
                 break
             elif(piece_captured[0] == piece[0]):
                 break
-
             row += row_direction
             col += col_direction 
-
     return moves
 
 def get_moves_knight(board: list[list[str]], start_row: int, start_col: int):
     piece = board[start_row][start_col]
     oponent = "w" if piece[0] == "b" else "b"
     moves = []
-
     directions = [(-2,1),(-2,-1),(2,1),(2,-1),(1,2),(-1,2),(1,-2),(-1,-2)]
 
     for row_direction, col_direction in directions:
@@ -69,7 +61,6 @@ def get_moves_bishop(board: list[list[str]], start_row: int, start_col: int):
     piece = board[start_row][start_col]
     oponent = "w" if piece[0] == "b" else "b"
     moves = []
-
     directions = [(-1,1),(-1,-1),(1,1),(1,-1)]
 
     for row_direction, col_direction in directions:
@@ -91,7 +82,6 @@ def get_moves_king(board: list[list[str]], start_row: int, start_col: int):
     piece = board[start_row][start_col]
     oponent = "w" if piece[0] == "b" else "b"
     moves = []
-
     directions = [(1,0),(1,1),(1,-1),(-1,0),(-1,1),(-1-1),(0,1),(0,-1)]
 
     for row_direction, col_direction in directions:
@@ -103,7 +93,6 @@ def get_moves_king(board: list[list[str]], start_row: int, start_col: int):
             moves.append(str(Move(start_row, start_col, row, col, board)))
     return moves
 
-
 def get_moves_queen(board: list[list[str]], start_row: int, start_col: int):
     moves = []
     moves.extend(get_moves_rook(board,start_row,start_col))
@@ -111,16 +100,10 @@ def get_moves_queen(board: list[list[str]], start_row: int, start_col: int):
     return moves
 
 get_moves_possibles_piece = {
-    "wp": get_moves_peaw,
-    "bp": get_moves_peaw,
-    "wr": get_moves_rook,
-    "br": get_moves_rook,
-    "bn": get_moves_knight,
-    "wn": get_moves_knight,
-    "bb": get_moves_bishop,
-    "wb": get_moves_bishop,
-    "wk": get_moves_king,
-    "bk": get_moves_king,
-    "wq": get_moves_queen,
-    "bq": get_moves_queen
+    "p": get_moves_peaw,
+    "r": get_moves_rook,
+    "n": get_moves_knight,
+    "b": get_moves_bishop,
+    "k": get_moves_king,
+    "q": get_moves_queen,
 }

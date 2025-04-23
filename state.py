@@ -67,7 +67,7 @@ class GameState:
         for row in range(8):
             for col in range(8):
                 if(self.board[row][col] != "" ):
-                    moves = get_moves_possibles_piece[self.board[row][col]](self.board, row, col)
+                    moves = get_moves_possibles_piece[self.board[row][col][1]](self.board, row, col)
                     self.moves_possibles.extend(moves)
     
     def end_game(self, screen):
